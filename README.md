@@ -8,3 +8,6 @@ couple of days later; "Let's make it more fun!!!"
 * Player, using arrow keys
 * Depth-First Search Algorithm
 * Breadth-First Search Algorithm
+
+npm version 6.4.1
+Node version 10.10.0
