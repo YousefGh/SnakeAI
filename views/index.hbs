@@ -7,10 +7,29 @@
   <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
-<canvas width="400" height="400" id="game"></canvas>
-<script type="module" src="javascripts/game.js"></script>
-<script type="module" src="javascripts/snake.js"></script>
-<script type="module" src="javascripts/search.js"></script>
-<script type="module" src="javascripts/helper.js"></script>
+
+  <div class="container">
+    <div class="options">
+      <button class="btn" id="dfs">Depth-First Search</button>
+      <button class="btn active" id="bfs">Breadth-First Search</button>
+      <button class="btn" id="PLAYER">Human :)</button>
+    </div>
+    <div>
+      <h4 id="score">Score: 0</h4>
+    </div>
+    <div class="canvasContainer">
+      <canvas width="400" height="400" id="game"></canvas>
+    </div>
+    <br><br>
+    <p class="note">
+      Made By: Yousef
+    </p>
+  </div>
+  
+
+  <script type="module" src="javascripts/game.js"></script>
+  <script type="module" src="javascripts/snake.js"></script>
+  <script type="module" src="javascripts/search.js"></script>
+  <script type="module" src="javascripts/helper.js"></script>
 </body>
 </html>

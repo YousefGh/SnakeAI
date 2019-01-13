@@ -9,7 +9,7 @@ export class Search {
      }
 
      getActionsBFS(snake, currentState, goal, snakeCells) {
-          console.log("start BFS");
+          // console.log("start BFS");
           var Queue = [];
           var openList = [];
           var actions = []; // actions leading to each state 
@@ -44,7 +44,7 @@ export class Search {
 
      }
      getActionsDFS(snake, currentState, goal, snakeCells){
-          console.log("start DFS");
+          // console.log("start DFS");
           var Stack = [];
           var openList = []; // Open List
           var actions = []; // actions to get to each state

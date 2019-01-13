@@ -19,6 +19,7 @@ export var Snake = { // AI Agent
 
      // Action sequence to be executed (moves)
      actionList: [],
+     applesEaten: 0,
 
      // Get the next action to execute 
      // Action sequence starts from 0
@@ -30,7 +31,7 @@ export var Snake = { // AI Agent
                } else if (Algorithm == 'DFS') {
                     var search = new Search(currentState, goal, snakeCells);
                     this.actionList = search.getActionsDFS(this, currentState, goal, snakeCells);
-               } else if (Algorithm == 'player') {
+               } else if (Algorithm == 'PLAYER') {
                     return [];
                } else {
                     this.actionList = ['down','down','down','down','down','down','right',
@@ -44,7 +45,7 @@ export var Snake = { // AI Agent
           }
      },
      getActionsBFS(currentState, goal, snakeCells) {
-          console.log("start BFS");
+          // console.log("start BFS");
           var Queue = [];
           var openList = [];
           var actions = []; // actions leading to each state 
@@ -79,7 +80,7 @@ export var Snake = { // AI Agent
 
      },
      getActionsDFS(currentState, goal, snakeCells){
-          console.log("start DFS");
+          // console.log("start DFS");
           var Stack = [];
           var openList = []; // Open List
           var actions = []; // actions to get to each state
@@ -111,7 +112,7 @@ export var Snake = { // AI Agent
                     });
                }
           }
-          console.log('no goal found!');
+          // console.log('no goal found!');
           return [];
      },
 
@@ -199,12 +200,14 @@ export var Snake = { // AI Agent
      isGoal(state, apple) {        
           var isGoal = state.x === apple.x && state.y === apple.y;
           if (isGoal) {
-               console.log('Gooooooooooooooal!');
                if (this.x === apple.x && this.y === apple.y) { // Reality! not thinking (Algorithm)
                     this.maxCells++;
                     // 25x25 grids = canvas size
                     apple.x = getRandomInt(0, 25) * grid;
                     apple.y = getRandomInt(0, 25) * grid;
+                    this.applesEaten++;
+                    console.log('Apples: ' + this.applesEaten);
+                    document.getElementById('score').innerHTML = 'Score: ' + this.applesEaten;
                }
           }
           return isGoal;

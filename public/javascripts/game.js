@@ -2,6 +2,7 @@ var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 import { Snake }  from './snake.js';
 import { getRandomInt } from './helper.js';
+var process = 'BFS';
 var grid = 16;
 var fbsController = 0;
 
@@ -16,7 +17,7 @@ function loop() {
 
      // controlling FBS; 1 = 60 fbs, 2 = 30 fbs, 4 = 15 fbs
      // 4: only show animation loop once each 4 counts instead of 1 count
-     if (++fbsController < 1) {
+     if (++fbsController < 3) {
           return;
      }
 
@@ -61,11 +62,39 @@ function loop() {
                }
           });
 
-          Snake.executeNextAction(Snake.getHead(), apple, Snake.getState(), 'BFS');
+          Snake.executeNextAction(Snake.getHead(), apple, Snake.getState(), process);
 }
 
+const dfsBtn = document.getElementById("dfs");
+const bfsBtn = document.getElementById("bfs");
+const playerBtn = document.getElementById("PLAYER");
+
+// Changing the process of returning actions
+dfsBtn.addEventListener("click", function(){
+     process = 'DFS';
+     this.classList.add('active');
+     bfsBtn.classList.remove('active');
+     playerBtn.classList.remove('active');
+     restartGame(Snake, apple)
+});
+
+bfsBtn.addEventListener("click", function(){
+     process = 'BFS';
+     this.classList.add('active');
+     dfsBtn.classList.remove('active');
+     playerBtn.classList.remove('active');
+     restartGame(Snake, apple)
+});
+playerBtn.addEventListener("click", function(){
+     process = 'PLAYER';
+     this.classList.add('active');
+     dfsBtn.classList.remove('active');
+     bfsBtn.classList.remove('active');
+     restartGame(Snake, apple)
+});
+
 function restartGame(Snake, apple) {
-     console.log('Died!');
+     // console.log('Died!');
      Snake.x = 160;
      Snake.y = 160;
      Snake.cells = [];
@@ -73,6 +102,8 @@ function restartGame(Snake, apple) {
      Snake.dx = grid;
      Snake.dy = 0;
      Snake.actionList = [] // remove unrelated actions (previous actions before death)
+     Snake.applesEaten = 0;
+     document.getElementById('score').innerHTML = 'Score: ' + Snake.applesEaten;
 
      apple.x = getRandomInt(0, 25) * grid;
      apple.y = getRandomInt(0, 25) * grid;
@@ -81,24 +112,26 @@ function restartGame(Snake, apple) {
 requestAnimationFrame(loop);
 
 document.addEventListener('keydown', function(e) {
-     //left arrow key
-     if (e.which === 37 && Snake.dx === 0) {
-          Snake.dx = -grid;
-          Snake.dy = 0;
-     }
-     // up arrow key
-     else if (e.which === 38 && Snake.dy === 0) {
-          Snake.dx = 0;
-          Snake.dy = -grid;
-     }
-     // right arrow key
-     else if (e.which === 39 && Snake.dx === 0) {
-          Snake.dx = grid;
-          Snake.dy = 0;
-     }
-     // down arrow key
-     else if (e.which === 40 && Snake.dy === 0) {
-          Snake.dx = 0;
-          Snake.dy = grid;
+     if(process == 'PLAYER') {     
+          //left arrow key
+          if (e.which === 37 && Snake.dx === 0) {
+               Snake.dx = -grid;
+               Snake.dy = 0;
+          }
+          // up arrow key
+          else if (e.which === 38 && Snake.dy === 0) {
+               Snake.dx = 0;
+               Snake.dy = -grid;
+          }
+          // right arrow key
+          else if (e.which === 39 && Snake.dx === 0) {
+               Snake.dx = grid;
+               Snake.dy = 0;
+          }
+          // down arrow key
+          else if (e.which === 40 && Snake.dy === 0) {
+               Snake.dx = 0;
+               Snake.dy = grid;
+          }
      }
 });
