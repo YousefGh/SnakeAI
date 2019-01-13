@@ -9,5 +9,5 @@ couple of days later; "Let's make it more fun!!!"
 * Depth-First Search Algorithm
 * Breadth-First Search Algorithm
 
-npm version 6.4.1
+npm version 6.4.1 <br/>
 Node version 10.10.0
