@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var favicon = require('serve-favicon');
+var http = require("http");
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -22,6 +24,10 @@ app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+setInterval(function() {
+    http.get("http://snake--ai.herokuapp.com/");
+}, 300000); // every 5 min
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
